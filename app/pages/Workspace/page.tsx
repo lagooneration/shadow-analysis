@@ -6,7 +6,7 @@ import {
   Book,
   Bot,
   Code2,
-  CornerDownLeft,
+  SquareArrowOutDownLeft,
   LifeBuoy,
   Mic,
   Paperclip,
@@ -48,11 +48,21 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip"
 
+import { Moon, Sun } from "lucide-react"
+import { useTheme } from "next-themes"
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuTrigger,
+  } from "@/components/ui/dropdown-menu"
+
 export const description =
-  "An AI playground with a sidebar navigation and a main content area. The playground has a header with a settings drawer and a share button. The sidebar has navigation links and a user menu. The main content area shows a form to configure the model and messages."
+  "Shadow Analysis tool to predict shadow free area for solar power system"
 
 export default function Workspace() {
-    
+    const { setTheme } = useTheme()
+
   return (
     <div className="grid h-screen w-full pl-[56px]">
       <aside className="inset-y fixed  left-0 z-20 flex h-full flex-col border-r">
@@ -199,7 +209,7 @@ export default function Workspace() {
       </aside>
       <div className="flex flex-col">
         <header className="sticky top-0 z-10 flex h-[57px] items-center gap-1 border-b bg-background px-4">
-          <h1 className="text-xl font-semibold">Citizen Corrects</h1>
+          <h1 className="text-xl font-semibold">Workspace</h1>
           <Drawer>
             <DrawerTrigger asChild>
               <Button variant="ghost" size="icon" className="md:hidden">
@@ -323,13 +333,36 @@ export default function Workspace() {
               </form>
             </DrawerContent>
           </Drawer>
+          <div className="ml-auto w-full flex justify-end">
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+                <Button variant="outline" size="sm">
+                <Sun className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
+                <Moon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
+                <span className="sr-only">Toggle theme</span>
+                </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end">
+                <DropdownMenuItem onClick={() => setTheme("light")}>
+                Light
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={() => setTheme("dark")}>
+                Dark
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={() => setTheme("system")}>
+                System
+                </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+          </div>
+
           <Button
             variant="outline"
             size="sm"
             className="ml-auto gap-1.5 text-sm"
           >
             <Share className="size-3.5" />
-            Share
+            Save
           </Button>
         </header>
         <main className="grid flex-1 gap-4 overflow-auto p-4 md:grid-cols-2 lg:grid-cols-3">
@@ -440,33 +473,7 @@ export default function Workspace() {
                 </div>
                 <div className="grid gap-3">
                   <Label htmlFor="content">Content</Label>
-                  <Textarea
-                    id="content"
-                    placeholder="You are a..."
-                    className="min-h-[9.5rem]"
-                  />
-                </div>
-              </fieldset>
-            </form>
-          </div>
-          <div className="relative flex h-full min-h-[50vh] flex-col rounded-xl bg-muted/50 p-4 lg:col-span-2">
-            <Badge variant="outline" className="absolute right-3 top-3">
-              Output
-            </Badge>
-            <div className="flex-1" />
-            <form
-              className="relative overflow-hidden rounded-lg border bg-background focus-within:ring-1 focus-within:ring-ring" x-chunk="dashboard-03-chunk-1"
-            >
-              <Label htmlFor="message" className="sr-only">
-                Message
-              </Label>
-              <Textarea
-                id="message"
-                placeholder="Type your message here..."
-                className="min-h-12 resize-none border-0 p-3 shadow-none focus-visible:ring-0"
-              />
-              <div className="flex items-center p-3 pt-0">
-                <TooltipProvider>
+                  <TooltipProvider>
                 <Tooltip>
                   <TooltipTrigger asChild>
                     <Button variant="ghost" size="icon">
@@ -486,9 +493,25 @@ export default function Workspace() {
                   <TooltipContent side="top">Use Microphone</TooltipContent>
                 </Tooltip>
                 </TooltipProvider>
+                </div>
+              </fieldset>
+            </form>
+          </div>
+          <div className="relative flex h-full min-h-[50vh] flex-col rounded-xl bg-muted/50 p-4 lg:col-span-2">
+            <Badge variant="outline" className="absolute right-3 top-3">
+              Output
+            </Badge>
+            <div className="flex-1" />
+            <form
+              className="relative overflow-hidden rounded-lg border bg-muted focus-within:ring-1 focus-within:ring-ring" x-chunk="dashboard-03-chunk-1"
+            >
+             
+              
+              <div className="flex items-center p-3 pt-0">
+                
                 <Button type="submit" size="sm" className="ml-auto gap-1.5">
-                  Send Message
-                  <CornerDownLeft className="size-3.5" />
+                  Reset
+                  <SquareArrowOutDownLeft className="size-3.5" />
                 </Button>
               </div>
             </form>
