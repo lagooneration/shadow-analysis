@@ -29,6 +29,12 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from "@/components/ui/drawer"
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuTrigger,
+  } from "@/components/ui/dropdown-menu"
 import { Input } from "@/components/ui/input"
 import Image from "next/image"
 import { Label } from "@/components/ui/label"
@@ -50,12 +56,7 @@ import {
 
 import { Moon, Sun } from "lucide-react"
 import { useTheme } from "next-themes"
-import {
-    DropdownMenu,
-    DropdownMenuContent,
-    DropdownMenuItem,
-    DropdownMenuTrigger,
-  } from "@/components/ui/dropdown-menu"
+import { SunCanvas } from "@/components/sun-canvas"
 
 export const description =
   "Shadow Analysis tool to predict shadow free area for solar power system"
@@ -498,6 +499,9 @@ export default function Workspace() {
             </form>
           </div>
           <div className="relative flex h-full min-h-[50vh] flex-col rounded-xl bg-muted/50 p-4 lg:col-span-2">
+            <div className="w-[1150px] h-[800px]">
+            <SunCanvas />
+            </div>
             <Badge variant="outline" className="absolute right-3 top-3">
               Output
             </Badge>
