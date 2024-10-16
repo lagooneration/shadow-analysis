@@ -38,14 +38,7 @@ export function SunCanvas() {
       const bg = useControls({
         bg: '#0a0c17',
       })
-      
-
-      const [datas, setDatas] = useControls(() => ({
-        datas: {
-            value: [10, 20],
-            step: 1
-        }
-      }))   
+       
 
   return (
     <Canvas shadows>
