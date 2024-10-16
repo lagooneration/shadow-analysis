@@ -21,6 +21,11 @@ import {
 
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
+import { cn } from "@/lib/utils"
+import { format } from "date-fns"
+import { Calendar as CalendarIcon } from "lucide-react"
+import { Calendar } from "@/components/ui/calendar"
+import { Day } from "@/components/ui/day"
 import {
   Drawer,
   DrawerContent,
@@ -38,6 +43,12 @@ import {
 import { Input } from "@/components/ui/input"
 import Image from "next/image"
 import { Label } from "@/components/ui/label"
+import { Month } from "@/components/ui/month"
+import {
+    Popover,
+    PopoverContent,
+    PopoverTrigger,
+  } from "@/components/ui/popover"
 import {
   Select,
   SelectContent,
@@ -57,12 +68,23 @@ import {
 import { Moon, Sun } from "lucide-react"
 import { useTheme } from "next-themes"
 import { SunCanvas } from "@/components/sun-canvas"
+import { useCameraReset } from '@/lib/useCameraReset';
+
 
 export const description =
   "Shadow Analysis tool to predict shadow free area for solar power system"
 
 export default function Workspace() {
     const { setTheme } = useTheme()
+
+    // const [date, setDate] = useState(new Date());
+    const [date, setDate] = React.useState<Date>()
+    const [year, setYear] = React.useState<number>(5);
+    const { setResetCamera } = useCameraReset(); // Access the store function
+
+    const handleButtonClick = () => {
+        setResetCamera(true); // Trigger the camera reset
+    };
 
   return (
     <div className="grid h-screen w-full pl-[56px]">
@@ -296,6 +318,7 @@ export default function Workspace() {
                     <Label htmlFor="temperature">Temperature</Label>
                     <Input id="temperature" type="number" placeholder="0.4" />
                   </div>
+                  
                   <div className="grid gap-3">
                     <Label htmlFor="date">Date</Label>
                     <Input id="date" type="number" placeholder="0" />
@@ -373,7 +396,7 @@ export default function Workspace() {
             <form className="grid w-full items-start gap-6">
               <fieldset className="grid gap-6 rounded-lg border p-4">
                 <legend className="-ml-1 px-1 text-sm font-medium">
-                  Settings
+                  Variables
                 </legend>
                 <div className="grid gap-3">
                   <Label htmlFor="model">Model</Label>
@@ -436,28 +459,53 @@ export default function Workspace() {
                     </SelectContent>
                   </Select>
                 </div>
-                <div className="grid gap-3">
-                  <Label htmlFor="temperature">Temperature</Label>
-                  <Input id="temperature" type="number" placeholder="0.4" />
-                </div>
+                
+                
                 <div className="grid grid-cols-2 gap-4">
                   <div className="grid gap-3">
-                    <Label htmlFor="date">Date</Label>
-                    <Input id="date" type="number" placeholder="0" />
+                    <Label htmlFor="lat">Latitude</Label>
+                    <Input id="lat" type="number" placeholder="28.6077" />
+                  </div>
+                  <div className="grid gap-3 w-full">
+                  <Label htmlFor="date">Date</Label>
+                    <Popover>
+                    <PopoverTrigger asChild>
+                        <Button
+                        variant={"outline"}
+                        className={cn(
+                            "w-full justify-start text-left font-normal",
+                            !date && "text-muted-foreground"
+                        )}
+                        >
+                        <CalendarIcon className="mr-2 h-4 w-4" />
+                        {date ? format(date, "PPP") : <span>Pick a date</span>}
+                        </Button>
+                    </PopoverTrigger>
+                    <PopoverContent className="w-auto p-0">
+                        <Calendar
+                        mode="single"
+                        selected={date}
+                        onSelect={setDate}
+                        initialFocus
+                        />
+                    </PopoverContent>
+                    </Popover>
+                  </div>
+                  <div className="grid gap-3 w-full">
+                    <Label htmlFor="long">Longitude</Label>
+                    <Input id="long" type="number" placeholder="77.2242" />
+                  </div>
                   </div>
                   <div className="grid gap-3">
-                    <Label htmlFor="month">Month</Label>
-                    <Input id="month" type="number" placeholder="0" />
+                    <Day />               
                   </div>
                   <div className="grid gap-3">
-                    <Label htmlFor="year">Year</Label>
-                  <Slider id="year" defaultValue={[33]} max={100} step={1} />
+                    <Month />
                   </div>
-                </div>
               </fieldset>
               <fieldset className="grid gap-6 rounded-lg border p-4">
                 <legend className="-ml-1 px-1 text-sm font-medium">
-                  Messages
+                  System
                 </legend>
                 <div className="grid gap-3">
                   <Label htmlFor="role">Role</Label>
@@ -471,6 +519,10 @@ export default function Workspace() {
                       <SelectItem value="assistant">Assistant</SelectItem>
                     </SelectContent>
                   </Select>
+                </div>
+                <div className="grid gap-3">
+                  <Label htmlFor="temperature">Temperature</Label>
+                  <Input id="temperature" type="number" placeholder="0.4" />
                 </div>
                 <div className="grid gap-3">
                   <Label htmlFor="content">Content</Label>
@@ -513,7 +565,7 @@ export default function Workspace() {
               
               <div className="flex items-center p-3 pt-0">
                 
-                <Button type="submit" size="sm" className="ml-auto gap-1.5">
+                <Button onClick={handleButtonClick} type="button" size="sm" className="ml-auto gap-1.5">
                   Reset
                   <SquareArrowOutDownLeft className="size-3.5" />
                 </Button>

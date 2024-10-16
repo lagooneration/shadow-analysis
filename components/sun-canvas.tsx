@@ -4,12 +4,31 @@ import { Canvas } from "@react-three/fiber"
 import { Box } from "@react-three/drei"
 import { useControls } from "leva"
 import { OrbitControls } from "@react-three/drei"
-import { location1 } from "@/utils/index"
+// import { location1 } from "@/utils/index"
 import TestGeo from "@/components/test-geo"
+import { useCameraReset } from "@/lib/useCameraReset"
+import { useThree } from "@react-three/fiber"
+import { useEffect } from "react"
+import { Vector3 } from "three"
+
+const initialCameraPosition = new Vector3(0, 0, 5);
 
 
 export function SunCanvas() {
-
+    // const SunCanvas: React.FC = () => {
+        // const { camera } = useThree(); // Access the Three.js camera
+        // const { resetCamera, setResetCamera } = useCameraReset();
+      
+        // useEffect(() => {
+        //   if (resetCamera) {
+        //     // Reset camera to its original position
+        //     camera.position.copy(initialCameraPosition);
+        //     camera.lookAt(0, 0, 0); // Optionally make camera look at the origin
+      
+        //     // Disable the reset trigger after it's been handled
+        //     setResetCamera(false);
+        //   }
+        // }, [resetCamera, camera, setResetCamera]);
 
 
 
@@ -19,6 +38,14 @@ export function SunCanvas() {
       const bg = useControls({
         bg: '#0a0c17',
       })
+      
+
+      const [datas, setDatas] = useControls(() => ({
+        datas: {
+            value: [10, 20],
+            step: 1
+        }
+      }))   
 
   return (
     <Canvas shadows>
@@ -26,10 +53,12 @@ export function SunCanvas() {
         <OrbitControls />
       <ambientLight intensity={0.5} />
       <pointLight position={[10, 10, 10]} />
-      <Box position={[0, 0, 0]} args={[1, 1, 1]}>
+      <Box position={[0, 0, 0]} args={[1, 1, 1]} castShadow>
         <meshBasicMaterial color={color.value} />
       </Box>
-      <TestGeo texturePath="/assets/location1.png" position={[0, 0, -0.5]} />
+      <TestGeo texturePath="/assets/location1.png" position={[0, 0, -0.5]} castShadow/>
     </Canvas>
   )
 }
+
+// export default SunCanvas;
