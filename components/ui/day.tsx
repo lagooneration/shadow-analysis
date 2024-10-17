@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import { Slider } from "@/components/ui/slider";
 import { Label } from "@/components/ui/label";
+import { useControls } from "leva"
 
 const formatTime = (hours: number, minutes: number) => {
   return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
@@ -17,6 +18,19 @@ export function Day() {
 
   const hours = Math.floor(time / 60);
   const minutes = time % 60;
+
+  const { hour } = useControls({
+    hour: {
+      value: 12,
+      min: 0,
+      max: 24,
+      step: 1,
+    },
+  });
+
+  React.useEffect(() => {
+    setTime(time);
+  }, [time]);
 
   return (
     <div className="grid gap-3">
