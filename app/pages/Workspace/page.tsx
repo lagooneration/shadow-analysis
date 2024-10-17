@@ -73,6 +73,7 @@ import Link from "next/link";
 // import Settings from "./settings";
 import { SideBar } from "@/components/side-bar";
 import { HourMonth } from "@/components/hour-month";
+import { Leva } from 'leva'
 
 
 export const description =
@@ -89,7 +90,13 @@ export default function Workspace() {
     };
 
   return (
-    <div className="grid h-screen w-full pl-[56px]">
+      <div className="grid h-screen w-full pl-[56px]">
+        <Leva titleBar={{
+          position: {
+            x: -20,
+            y: 100
+          }
+        }} />
       <aside className="inset-y fixed  left-0 z-20 flex h-full flex-col border-r">
         <div className="border-b p-2">
           <Button variant="outline" size="icon" aria-label="Home">
