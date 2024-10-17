@@ -3,12 +3,15 @@ import React from "react";
 // import { useRouter } from "next/navigation"
 import {
   Bird,
+  Box,
   Book,
   Bot,
   Code2,
   SquareArrowOutDownLeft,
   LifeBuoy,
   Mic,
+  MapPin,
+  ImageUp,
   Paperclip,
   Rabbit,
   Settings,
@@ -112,7 +115,7 @@ export default function Workspace() {
         </div>
         <nav className="grid gap-1 p-2">
         <TooltipProvider>
-        <Tooltip>
+        {/* <Tooltip>
                 <TooltipTrigger asChild>
                     <Button variant="ghost" size="icon">
                         <Paperclip className="size-4" />
@@ -120,7 +123,7 @@ export default function Workspace() {
                     </Button>
                 </TooltipTrigger>
                 <TooltipContent side="top">Attach File</TooltipContent>
-          </Tooltip>
+          </Tooltip> */}
           <Tooltip>
             <TooltipTrigger asChild>
               <Button
@@ -352,42 +355,53 @@ export default function Workspace() {
                     <Input id="lat" type="number" placeholder="28.6077" />
                   </div>
                   
-                  <div className="grid gap-3 w-full">
+                  <div className="grid gap-3">
                     <Label htmlFor="long">Longitude</Label>
                     <Input id="long" type="number" placeholder="77.2242" />
                   </div>
                   </div>
-                  <div className="grid gap-3">
+                  <div className="grid gap-3 w-1/2">
                     <Day />               
-                  </div>
-                  <div className="grid gap-3">
                     <Month />
                   </div>
               </fieldset>
-              <fieldset className="grid gap-6 rounded-lg border p-4">
-                <legend className="-ml-1 px-1 text-sm font-medium">
-                  System
-                </legend>
-                
-                <div className="grid gap-3">
+              <div className="grid gap-3">
                   <HourMonth />
                 </div>
-                <div className="grid gap-3">
-                  <Label htmlFor="content">Content</Label>
-                  
-                <div className="grid gap-3">
+              <fieldset className="grid gap-6 rounded-lg border p-4">
+                <legend className="-ml-1 px-1 text-sm font-medium">
+                  Upload
+                </legend>
+                <div className="flex flex-row gap-3">
                 <TooltipProvider>
                 <Tooltip>
-                  <TooltipTrigger asChild>
-                    <Button variant="ghost" size="icon">
-                      <Mic className="size-4" />
-                      <span className="sr-only">Use Microphone</span>
-                    </Button>
-                  </TooltipTrigger>
-                  <TooltipContent side="top">Use Microphone</TooltipContent>
+                        <TooltipTrigger asChild>
+                            <Button variant="ghost" size="icon">
+                                <MapPin  className="size-4" />
+                                <span className="sr-only">Attach file</span>
+                            </Button>
+                        </TooltipTrigger>
+                        <TooltipContent side="top">Attach File</TooltipContent>
+                </Tooltip>
+                <Tooltip>
+                    <TooltipTrigger asChild>
+                        <Button variant="ghost" size="icon">
+                            <ImageUp  className="size-4" />
+                            <span className="sr-only">Upload Image</span>
+                        </Button>
+                    </TooltipTrigger>
+                        <TooltipContent side="top">Upload Image</TooltipContent>
+                </Tooltip>
+                <Tooltip>
+                    <TooltipTrigger asChild>
+                        <Button variant="ghost" size="icon">
+                            <Box  className="size-4" />
+                            <span className="sr-only">Upload Model</span>
+                        </Button>
+                    </TooltipTrigger>
+                        <TooltipContent side="top">Upload Model</TooltipContent>
                 </Tooltip>
                 </TooltipProvider>
-                </div>
                 </div>
               </fieldset>
             </form>

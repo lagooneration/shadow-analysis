@@ -34,6 +34,37 @@ export default function Dashboard() {
           </div>
           <form  className="grid gap-4">
           <div className="grid gap-2">
+              <Label htmlFor="picture">Location</Label>
+              <div className="relative">
+              <label className="block">
+                <span className="sr-only">Upload Image</span>
+                <input type="file" className="block w-full text-sm text-gray-500
+                  file:me-4 file:py-2 file:px-4
+                  file:rounded-lg file:border-0
+                  file:text-sm file:font-semibold
+                  file:bg-blue-600 file:text-white
+                  hover:file:bg-blue-700
+                  file:disabled:opacity-50 file:disabled:pointer-events-none
+                  dark:text-neutral-500
+                  dark:file:bg-blue-500
+                  dark:hover:file:bg-blue-400
+                "/>
+              </label>
+              </div>
+            </div>
+          <div className="grid gap-2">
+              <div className="flex flex-row gap-2">
+                <div className="grid gap-2">
+                    <Label htmlFor="lat">Latitude</Label>
+                    <Input id="lat" type="number" placeholder="28.6077" />
+                  </div>
+                  <div className="grid gap-2">
+                    <Label htmlFor="long">Longitude</Label>
+                    <Input id="long" type="number" placeholder="77.2242" />
+                  </div>
+                </div>
+              </div>
+              <div className="grid gap-2">
               <Label htmlFor="name">Name</Label>
               <Input
                 id="name"
@@ -41,39 +72,6 @@ export default function Dashboard() {
                 placeholder="Property Name"
                 required
               />
-            </div>
-            <div className="grid gap-2">
-              <Label htmlFor="picture">Location</Label>
-              <div className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50">
-              <div className="relative">
-                <input
-                  type="file"
-                  id="name"
-                  className="hidden"
-                  required
-                />
-                <label
-                  htmlFor="name"
-                  className="flex items-center justify-center cursor-pointer"
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="h-6 w-6 mr-2"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
-                    />
-                  </svg>
-                  <span className="text-muted-foreground">Upload File</span>
-                </label>
-              </div>
-              </div>
             </div>
             <div className="grid gap-2">
               <div className="flex items-center">
