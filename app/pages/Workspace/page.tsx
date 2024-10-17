@@ -2,32 +2,34 @@
 import React from "react";
 // import { useRouter } from "next/navigation"
 import {
-  Bird,
   Box,
   Book,
   Bot,
-  Code2,
+  Copy,
   SquareArrowOutDownLeft,
-  LifeBuoy,
-  Mic,
-  MapPin,
+  LandPlot,
+  Moon,
   ImageUp,
-  Paperclip,
-  Rabbit,
   Settings,
   Settings2,
   Share,
-  SquareTerminal,
-  SquareUser,
-  Turtle,
+  Sun,
+  Bell,
+  Info,
 } from "lucide-react"
-
+import {
+    AlertDialog,
+    AlertDialogAction,
+    AlertDialogCancel,
+    AlertDialogContent,
+    AlertDialogDescription,
+    AlertDialogFooter,
+    AlertDialogHeader,
+    AlertDialogTitle,
+    AlertDialogTrigger,
+  } from "@/components/ui/alert-dialog"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
-import { cn } from "@/lib/utils"
-import { format } from "date-fns"
-import { Calendar as CalendarIcon } from "lucide-react"
-import { Calendar } from "@/components/ui/calendar"
 import { Day } from "@/components/ui/day"
 import {
   Drawer,
@@ -48,11 +50,6 @@ import Image from "next/image"
 import { Label } from "@/components/ui/label"
 import { Month } from "@/components/ui/month"
 import {
-    Popover,
-    PopoverContent,
-    PopoverTrigger,
-  } from "@/components/ui/popover"
-import {
   Select,
   SelectContent,
   SelectItem,
@@ -68,16 +65,25 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip"
 
-import { Moon, Sun } from "lucide-react"
 import { useTheme } from "next-themes"
 import { SunCanvas } from "@/components/sun-canvas"
 import { useCameraReset } from '@/lib/useCameraReset';
-import Link from "next/link";
+// import Link from "next/link";
 // import Settings from "./settings";
-import { SideBar } from "@/components/side-bar";
+// import { SideBar } from "@/components/side-bar";
 import { HourMonth } from "@/components/hour-month";
 import { Leva } from 'leva'
-
+// import { Help } from "@/components/ui/help";
+import { 
+    Dialog, 
+    DialogClose, 
+    DialogContent, 
+    DialogDescription, 
+    DialogFooter, 
+    DialogHeader, 
+    DialogTitle, 
+    DialogTrigger 
+} from "@/components/ui/dialog";
 
 export const description =
   "Shadow Analysis tool to predict shadow free area for solar power system"
@@ -115,15 +121,6 @@ export default function Workspace() {
         </div>
         <nav className="grid gap-1 p-2">
         <TooltipProvider>
-        {/* <Tooltip>
-                <TooltipTrigger asChild>
-                    <Button variant="ghost" size="icon">
-                        <Paperclip className="size-4" />
-                        <span className="sr-only">Attach file</span>
-                    </Button>
-                </TooltipTrigger>
-                <TooltipContent side="top">Attach File</TooltipContent>
-          </Tooltip> */}
           <Tooltip>
             <TooltipTrigger asChild>
               <Button
@@ -132,7 +129,7 @@ export default function Workspace() {
                 className="rounded-lg bg-muted"
                 aria-label="Playground"
               >
-                <SquareTerminal className="size-5" />
+                <Sun className="size-5" />
               </Button>
             </TooltipTrigger>
             <TooltipContent side="right" sideOffset={5}>
@@ -155,23 +152,6 @@ export default function Workspace() {
               Models
             </TooltipContent>
           </Tooltip>
-          
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <Button
-                variant="ghost"
-                size="icon"
-                className="rounded-lg"
-                aria-label="API"
-              >
-                <Code2 className="size-5" />
-              </Button>
-            </TooltipTrigger>
-            <TooltipContent side="right" sideOffset={5}>
-              API
-            </TooltipContent>
-          </Tooltip>
-          
           <Tooltip>
             <TooltipTrigger asChild>
               <Button
@@ -206,41 +186,96 @@ export default function Workspace() {
         </TooltipProvider>
         </nav>
         <nav className="mt-auto grid gap-1 p-2">
-        <TooltipProvider>
-          <Tooltip>
-            <TooltipTrigger asChild>
+        
+        <AlertDialog>
+            <TooltipProvider>
+            <Tooltip>
+                <TooltipTrigger asChild>
+                
+                <AlertDialogTrigger asChild>
               <Button
                 variant="ghost"
                 size="icon"
                 className="mt-auto rounded-lg"
                 aria-label="Help"
               >
-                <LifeBuoy className="size-5" />
+                <Info className="size-5" />
               </Button>
-            </TooltipTrigger>
-            <TooltipContent side="right" sideOffset={5}>
-              Help
-            </TooltipContent>
-          </Tooltip>
-          </TooltipProvider>
+              </AlertDialogTrigger>
+              </TooltipTrigger>
+                <TooltipContent side="right" sideOffset={5}>
+                Help
+                </TooltipContent>
+            </Tooltip>
+            </TooltipProvider>
+              
+              <AlertDialogContent>
+              <AlertDialogHeader>
+                <AlertDialogTitle>Reach out to us!</AlertDialogTitle>
+                <AlertDialogDescription>
+                    We are here to help you with any queries you have.
+                </AlertDialogDescription>
+                </AlertDialogHeader>
+                <AlertDialogFooter>
+                <AlertDialogCancel>Cancel</AlertDialogCancel>
+                <AlertDialogAction>Continue</AlertDialogAction>
+                </AlertDialogFooter>
+            </AlertDialogContent>
+            </AlertDialog>
+            
 
-          <TooltipProvider>
+            <Dialog>
+            <TooltipProvider>
           <Tooltip>
             <TooltipTrigger asChild>
+            <DialogTrigger asChild>
               <Button
                 variant="ghost"
                 size="icon"
                 className="mt-auto rounded-lg"
                 aria-label="Account"
               >
-                <SquareUser className="size-5" />
+                <Bell className="size-5" />
               </Button>
+              </DialogTrigger>
             </TooltipTrigger>
             <TooltipContent side="right" sideOffset={5}>
               Account
             </TooltipContent>
           </Tooltip>
           </TooltipProvider>
+          <DialogContent className="sm:max-w-md">
+                <DialogHeader>
+                <DialogTitle>Reach Out</DialogTitle>
+                <DialogDescription>
+                    We are here to help you with any queries you have.
+                </DialogDescription>
+                </DialogHeader>
+                <div className="flex items-center space-x-2">
+                <div className="grid flex-1 gap-2">
+                    <Label htmlFor="link" className="sr-only">
+                    Email
+                    </Label>
+                    <Input
+                    id="link"
+                    defaultValue="citizencorrects@gmail.com"
+                    readOnly
+                    />
+                </div>
+                <Button type="submit" size="sm" className="px-3">
+                    <span className="sr-only">Copy</span>
+                    <Copy className="h-4 w-4" />
+                </Button>
+                </div>
+                <DialogFooter className="sm:justify-start">
+                <DialogClose asChild>
+                    <Button type="button" variant="secondary">
+                    Close
+                    </Button>
+                </DialogClose>
+                </DialogFooter>
+            </DialogContent>
+            </Dialog>
         </nav>
       </aside>
       <div className="flex flex-col">
@@ -377,16 +412,16 @@ export default function Workspace() {
                 <Tooltip>
                         <TooltipTrigger asChild>
                             <Button variant="ghost" size="icon">
-                                <MapPin  className="size-4" />
-                                <span className="sr-only">Attach file</span>
+                                <LandPlot  className="size-5" />
+                                <span className="sr-only">Location screenshot</span>
                             </Button>
                         </TooltipTrigger>
-                        <TooltipContent side="top">Attach File</TooltipContent>
+                        <TooltipContent side="top">Location screenshot</TooltipContent>
                 </Tooltip>
                 <Tooltip>
                     <TooltipTrigger asChild>
                         <Button variant="ghost" size="icon">
-                            <ImageUp  className="size-4" />
+                            <ImageUp  className="size-5" />
                             <span className="sr-only">Upload Image</span>
                         </Button>
                     </TooltipTrigger>
@@ -395,7 +430,7 @@ export default function Workspace() {
                 <Tooltip>
                     <TooltipTrigger asChild>
                         <Button variant="ghost" size="icon">
-                            <Box  className="size-4" />
+                            <Box  className="size-5" />
                             <span className="sr-only">Upload Model</span>
                         </Button>
                     </TooltipTrigger>

@@ -46,9 +46,14 @@ export function SunCanvas() {
         <OrbitControls />
       <ambientLight intensity={0.5} />
       <pointLight position={[10, 10, 10]} />
+      {/* <directionalLight intensity={2.0} position={[2, 2, 0]} /> */}
       <Box position={[0, 0, 0]} args={[1, 1, 1]} castShadow>
         <meshBasicMaterial color={color.value} />
       </Box>
+      <mesh position={[2, -2, 0]}>
+      <boxGeometry args={[2, 1, 1]}/>
+      <meshNormalMaterial />
+      </mesh>
       <TestGeo texturePath="/assets/location1.png" position={[0, 0, -0.5]} castShadow/>
     </Canvas>
   )
